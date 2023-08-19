@@ -23,4 +23,18 @@ public class MonoJustTest {
 
         mono.subscribe();
     }
+
+    // write a mono.just subscribe test with lambda expression subscriber
+    @Test
+    public void testMonoJustSubscribeWithLambda() {
+        AtomicInteger res = new AtomicInteger();
+
+        Mono<Integer> mono = Mono.just(10).doOnNext(i -> res.set(i));
+
+        mono.subscribe(
+            data -> System.out.println("OnNext --> " + data),
+            error -> System.out.println("onError --> " + error),
+            () -> System.out.println("onComplete")
+        );
+    }
 }

@@ -1,15 +1,26 @@
 package com.yogesh.springwebfluxplayground.mono;
 
+import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
-import reactor.core.publisher.BaseSubscriber;
 
-public class SampleSubscriber<String> extends BaseSubscriber<String> {
-    public void hookOnSubscribe(Subscription subscription) {
-        System.out.println("Subscribed");
-        request(1);
+public class SampleSubscriber implements Subscriber<String> {
+    @Override
+    public void onSubscribe(Subscription s) {
+       s.request(1);
     }
 
-    public void hookOnNext(String value) {
-        System.out.println("onNext --> " + value);
+    @Override
+    public void onNext(String s) {
+        System.out.println("onNext --> " + s);
+    }
+
+    @Override
+    public void onError(Throwable t) {
+
+    }
+
+    @Override
+    public void onComplete() {
+        System.out.println("onComplete");
     }
 }
