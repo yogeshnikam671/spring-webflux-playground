@@ -2,6 +2,9 @@ package com.yogesh.springwebfluxplayground.mono;
 
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
+import reactor.core.publisher.Hooks;
+
+import java.util.function.Consumer;
 
 public class SampleMono implements Publisher<String> {
     private final String data;
@@ -15,5 +18,10 @@ public class SampleMono implements Publisher<String> {
         SampleSubscription sampleSubscription =
                 new SampleSubscription((Subscriber<String>) s, data);
         s.onSubscribe(sampleSubscription);
+    }
+
+    public SampleMono doOnNext(Consumer<String> consumer) {
+        consumer.accept(data);
+        return new SampleMono("");
     }
 }
