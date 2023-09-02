@@ -24,7 +24,7 @@ public class MonoIntroTest {
     }).verifyComplete();
   }
 
-  // cold publisher // evaluates a new value on every subscribe
+  // hot publisher // evaluates a new value on every subscribe
   @Test
   void shouldRunDefer() throws InterruptedException {
     Mono mono = Mono.defer(() -> Mono.just(new Date()));
