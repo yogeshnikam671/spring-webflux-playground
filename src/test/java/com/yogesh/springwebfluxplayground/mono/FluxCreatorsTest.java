@@ -20,6 +20,16 @@ public class FluxCreatorsTest {
     }
 
     @Test
+    void defer() {
+        Flux<Integer> pub = Flux.defer(() -> Flux.just(1, 2, 3, 4, 5));
+        pub.subscribe(
+            (it) -> System.out.println("onNext --> " + it),
+            (err) -> System.out.println("onError --> " + err),
+            () -> System.out.println("onComplete")
+        );
+    }
+
+    @Test
     void fromIterable() {
         List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
         Flux<Integer> pub = Flux.fromIterable(list);
